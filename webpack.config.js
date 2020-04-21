@@ -1,4 +1,5 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   // モード値を production に設定すると最適化された状態で、
@@ -6,11 +7,13 @@ module.exports = {
   mode: 'development',
 
   // メインとなるJavaScriptファイル（エントリーポイント）
-  entry: './src/main.ts',
+  entry: {
+    'main': './src/main.ts',
+  },
   // ファイルの出力設定
   output: {
     //  出力ファイルのディレクトリ名
-    path: path.join(__dirname, 'public', 'dist'),
+    path: path.join(__dirname, 'dist'),
     // 出力ファイル名
     filename: "main.js"
   },
@@ -20,10 +23,25 @@ module.exports = {
         // 拡張子 .ts の場合
         test: /\.ts$/,
         // TypeScript をコンパイルする
-        use: 'ts-loader',
+        use: [
+          'ts-loader',
+          {
+            loader: 'expose-loader',
+            options: 'main',
+          }
+        ],
       },
     ],
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'Custom template',
+      inject: 'head',
+      chunks: ['main'],
+      template: 'src/templates/index.html',
+      publicPath: '/',
+    })
+  ],
   // import 文で .ts ファイルを解決するため
   // これを定義しないと import 文で拡張子を書く必要が生まれる。
   // フロントエンドの開発では拡張子を省略することが多いので、
@@ -35,6 +53,6 @@ module.exports = {
     ],
   },
   devServer: {
-    contentBase: path.join(__dirname, 'public'),
+    compress: true,
   },
 };
