@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -40,7 +41,12 @@ module.exports = {
       chunks: ['main'],
       template: 'src/templates/index.html',
       publicPath: '/',
-    })
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
+      },
+  }),
   ],
   // import 文で .ts ファイルを解決するため
   // これを定義しないと import 文で拡張子を書く必要が生まれる。
