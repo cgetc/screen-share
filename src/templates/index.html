@@ -5,6 +5,6 @@
     <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
   <body>
-    <script>var publicPath = '<%= htmlWebpackPlugin.options.publicPath %>'</script>
+    <script>main.init({publicPath: '<%= htmlWebpackPlugin.options.publicPath %>'})</script>
   </body>
 </html>

@@ -21,13 +21,20 @@ module.exports = {
         // 拡張子 .ts の場合
         test: /\.ts$/,
         // TypeScript をコンパイルする
-        use: 'ts-loader',
+        use: [
+          'ts-loader',
+          {
+            loader: 'expose-loader',
+            options: 'main',
+          }
+        ],
       },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Custom template',
+      inject: 'head',
       template: 'src/templates/index.html',
       publicPath: '/',
     })
