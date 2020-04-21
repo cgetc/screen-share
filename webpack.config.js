@@ -7,7 +7,9 @@ module.exports = {
   mode: 'development',
 
   // メインとなるJavaScriptファイル（エントリーポイント）
-  entry: './src/main.ts',
+  entry: {
+    'main': './src/main.ts',
+  },
   // ファイルの出力設定
   output: {
     //  出力ファイルのディレクトリ名
@@ -35,6 +37,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: 'Custom template',
       inject: 'head',
+      chunks: ['main'],
       template: 'src/templates/index.html',
       publicPath: '/',
     })
