@@ -1,1 +1,18 @@
-console.log('hello')
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import routes from "@/routes"
+
+Vue.use(VueRouter)
+
+const router = new VueRouter({
+    routes,
+    mode: 'history',
+})
+
+const app = new Vue({
+    router,
+})
+
+document.addEventListener('DOMContentLoaded', () => {
+    app.$mount('#app')
+})
