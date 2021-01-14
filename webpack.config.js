@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { VueLoaderPlugin } = require('vue-loader');
 
 module.exports = {
   // モード値を production に設定すると最適化された状態で、
@@ -9,24 +10,32 @@ module.exports = {
 
   // メインとなるJavaScriptファイル（エントリーポイント）
   entry: {
-    'main': './src/main.ts',
+    'main': './src/main.ts'
   },
   // ファイルの出力設定
   output: {
     //  出力ファイルのディレクトリ名
     path: path.join(__dirname, 'dist'),
+    publicPath: '/',
     // 出力ファイル名
     filename: "main.js"
   },
   module: {
     rules: [
       {
+        test: /\.vue$/,
+        use: 'vue-loader',
+      },
+      {
         // 拡張子 .ts の場合
         test: /\.ts$/,
         // TypeScript をコンパイルする
-        use: [
-          'ts-loader',
-        ],
+        use: {
+          loader: 'ts-loader',
+          options: {
+            appendTsSuffixTo: [/\.vue$/]
+          }
+        }
       },
     ],
   },
@@ -38,6 +47,7 @@ module.exports = {
       template: 'src/templates/index.html',
       publicPath: '/',
     }),
+    new VueLoaderPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
@@ -49,12 +59,17 @@ module.exports = {
   // フロントエンドの開発では拡張子を省略することが多いので、
   // 記載したほうがトラブルに巻き込まれにくい。
   resolve: {
+    alias: {
+      'vue': 'vue/dist/vue.esm.browser.js',
+      '@': path.resolve(__dirname, 'src'),
+    },
     // 拡張子を配列で指定
     extensions: [
-      '.ts', '.js',
+      '.ts', '.js', '.vue',
     ],
   },
   devServer: {
     compress: true,
+    historyApiFallback: true
   },
 };

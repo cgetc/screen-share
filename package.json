@@ -8,9 +8,15 @@
     "html-webpack-plugin": "^4.2.0",
     "ts-loader": "^6.2.2",
     "typescript": "^3.8.3",
+    "vue-loader": "^15.9.6",
+    "vue-template-compiler": "^2.6.12",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.11.2"
   },
-  "private": true
+  "private": true,
+  "dependencies": {
+    "vue": "^2.6.12",
+    "vue-router": "^3.4.9"
+  }
 }
