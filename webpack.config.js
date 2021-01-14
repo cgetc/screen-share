@@ -10,12 +10,13 @@ module.exports = {
 
   // メインとなるJavaScriptファイル（エントリーポイント）
   entry: {
-    'main': './src/main.ts',
+    'main': './src/main.ts'
   },
   // ファイルの出力設定
   output: {
     //  出力ファイルのディレクトリ名
     path: path.join(__dirname, 'dist'),
+    publicPath: '/',
     // 出力ファイル名
     filename: "main.js"
   },
@@ -69,5 +70,6 @@ module.exports = {
   },
   devServer: {
     compress: true,
+    historyApiFallback: true
   },
 };
