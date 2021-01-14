@@ -1,3 +1,1 @@
-export const init = (config) => {
-    console.log(config)
-}
+console.log('hello')
