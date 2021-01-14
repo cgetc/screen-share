@@ -26,10 +26,6 @@ module.exports = {
         // TypeScript をコンパイルする
         use: [
           'ts-loader',
-          {
-            loader: 'expose-loader',
-            options: 'main',
-          }
         ],
       },
     ],
